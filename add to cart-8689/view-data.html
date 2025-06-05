@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Product</title>
+    <link rel="stylesheet" href="fonts/remix-icon/remixicon.css">
+    <link rel="stylesheet" href="css/view-data.css">
+</head>
+
+<body>
+    <nav>
+        <h1>PRODUCT LIST</h1>
+        <div>
+            <a href="add-item.html" target="_blank">
+                <i class="ri-add-circle-fill"></i> 
+            </a>
+            <a href="check-out.html" target="_blank">
+                <i class="ri-shopping-cart-fill"></i>
+                <span>0</span>
+            </a>
+        </div>
+    </nav>
+
+    <div class="search">
+        <input type="text" id="search" placeholder="Search" onkeyup="SearchItem()">
+    </div>
+
+    <div id="res"></div>
+
+    <script>
+        function viewData() {
+            var viewproduct = localStorage.getItem('product');
+            var view = JSON.parse(viewproduct);
+
+            var data = "<div class='main'>";
+            if (view && view.length > 0) {
+                for (var i = 0; i < view.length; i++) {
+                    data += `<div class='box'>`;
+                    data += `<img src='img/${view[i].img}' width='180px' height='180px'>`;
+                    data += `<h2 class='name'>${view[i].name}</h2>`;
+                    data += `<p class='price'> ₹ =${view[i].price}</p>`;
+                    data += `<p class='quntity'>
+                                <i onclick="decrement(${view[i].no})" class="ri-subtract-fill"></i>
+                                ${view[i].quantity}
+                                <i onclick="increment(${view[i].no})" class="ri-add-fill"></i>
+                             </p>`;
+                    data += `<td><a href='javascript:deleteData(${view[i].no})'>X</a></td>`
+                
+                     
+                    data += `</div>`;
+                }
+            } else {
+                data += `<p>No Products Available</p>`;
+            }
+            data += "</div>";
+            document.getElementById('res').innerHTML = data;
+        }
+
+        viewData();
+
+        function deleteData(no) {
+            var dedata = localStorage.getItem('product');
+            var ddata = JSON.parse(dedata);
+
+            for (var i = 0; i < ddata.length; i++) {
+                if (ddata[i]['no'] == no) {
+                    ddata.splice(i, 1);
+                    break;
+                }
+            }
+
+            localStorage.setItem('product', JSON.stringify(ddata));
+            viewData();
+        }
+
+        function increment(no) {
+            var data = localStorage.getItem('product');
+            var products = JSON.parse(data);
+
+            for (var i = 0; i < products.length; i++) {
+                if (products[i]['no'] == no) {
+                    products[i].quantity++;
+                    break;
+                }
+            }
+
+            localStorage.setItem('product', JSON.stringify(products));
+            viewData();
+        }
+
+        function decrement(no) {
+            var data = localStorage.getItem('product');
+            var products = JSON.parse(data);
+
+            for (var i = 0; i < products.length; i++) {
+                if (products[i]['no'] == no) {
+                    if (products[i].quantity > 1) {
+                        products[i].quantity--;
+                    }
+                    break;
+                }
+            }
+
+            localStorage.setItem('product', JSON.stringify(products));
+            viewData();
+        }
+
+        function SearchItem() {
+            var SearchItem = document.getElementById('search').value.toLowerCase();
+
+            var searchData = localStorage.getItem('product');
+            var search = JSON.parse(searchData);
+
+            var data = "<div class='main'>";
+
+            search.forEach((item) => {
+                if (item.name.toLowerCase().includes(SearchItem)) {
+                    data += `<div class='box'>`;
+                    data += `<img src='img/${item.img}' width='180px' height='180px'>`;
+                    data += `<h2 class='name'>${item.name}</h2>`;
+                    data += `<p class='price'>Price: ₹ ${item.price}</p>`;
+                    data += `<p class='quntity'>
+                                <i onclick="decrement(${item.no})" class="ri-subtract-fill"></i>
+                                ${item.quantity}
+                                <i onclick="increment(${item.no})" class="ri-add-fill"></i>
+                             </p>`;
+                    data += `<td><a href='javascript:deleteData(${item.no})'></a></td>`;
+                            
+                    data += `</div>`;
+                }
+            });
+            data += "</div>";
+            document.getElementById('res').innerHTML = data;
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,159 @@
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+
+    <style>
+    body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    text-align: center;
+    margin: 20px;
+}
+
+.container {
+    max-width: 400px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin: auto;
+}
+
+h1 {
+    color: #333;
+}
+
+input {
+    width: 70%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button {
+    padding: 10px 15px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+#submitBtn {
+    background-color: green;
+    color: white;
+}
+
+#submitBtn:hover {
+    background-color: darkgreen;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background: #4CAF50;
+    color: white;
+}
+
+td button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+td button:first-child {
+    background-color: #fbc02d;
+    color: white;
+}
+
+td button:first-child:hover {
+    background-color: #f9a825;
+}
+
+td button:last-child {
+    background-color: #e53935;
+    color: white;
+}
+
+td button:last-child:hover {
+    background-color: #c62828;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>To-Do List</h1>
+        <input type="hidden" id="editno">
+        <input type="text" id="item" placeholder="Enter your massage.....">
+        <button id="submitBtn">Add</button>
+        <div id="output"></div>
+    </div>
+    
+    <script>
+        var tasks = JSON.parse(localStorage.getItem('data')) || [];
+        function addData() {
+            var item = document.getElementById('item').value;
+            var editno = document.getElementById('editno').value;
+            if (item === '') {
+                alert("Please all details feelfe");
+                return;
+            }
+            if (editno) {
+                tasks = tasks.map(task => task.no == editno ? { task: item, no: task.no } : task);
+                document.getElementById('submitBtn').innerText = "Add";
+            } else {
+                tasks.push({ task: item, no: Math.round(Math.random() * 100) });
+            }
+            localStorage.setItem('data', JSON.stringify(tasks));
+            document.getElementById('item').value = "";
+            document.getElementById('editno').value = "";
+            viewData();
+        }
+        function viewData() {
+            var table = "<table><tr><th>Task</th><th>Actions</th></tr>";
+            tasks.forEach(({ task, no }) => {
+                table += `<tr>
+                            <td>${task}</td>
+                            <td>
+                                <button onclick='updateData(${no})'>Edit</button>
+                                <button onclick='deleteData(${no})'>Delete</button>
+                            </td>
+                          </tr>`;
+            });
+            table += "</table>";
+            document.getElementById("output").innerHTML = table;
+        }
+        function deleteData(no) {
+            tasks = tasks.filter(task => task.no !== no);
+            localStorage.setItem("data", JSON.stringify(tasks));
+            viewData();
+        }
+        function updateData(no) {
+            var task = tasks.find(task => task.no == no);
+            document.getElementById("item").value = task.task;
+            document.getElementById("editno").value = task.no;
+            document.getElementById("submitBtn").innerText = "Update";
+        }
+        viewData();
+        document.getElementById("submitBtn").addEventListener("click", addData);
+    </script>
+</body>
+</html>

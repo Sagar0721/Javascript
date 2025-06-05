@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart Product</title>
+    <link rel="stylesheet" href="fonts/remix-icon/remixicon.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        table {
+            width: 100%;
+            text-align: center;
+            margin-top: 50px;
+            border-collapse: collapse;
+        }
+
+        th {
+            font-size: 22px;
+            font-weight: bold;
+            padding: 15px;
+            background-color: #f0f0f0;
+        }
+
+        td {
+            font-size: 18px;
+            padding: 15px;
+        }
+
+        img {
+            border-radius: 10px;
+        }
+
+        a {
+            display: inline-block;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .btn {
+            padding: 8px 12px;
+            border-radius: 8px;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            margin: 5px;
+            border: none;
+        }
+
+        .delete-btn {
+            background-color: red;
+        }
+
+        .update-btn {
+            background-color: orange;
+        }
+
+        .checkout-btn {
+            background-color: rgb(28, 25, 25);
+            color: white;
+            padding: 10px 12px;
+            margin-left: 20px;
+            border-radius: 25px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div style="display: flex; justify-content: space-between; background-color: rgb(206, 212, 34); color: white; align-items: center; padding: 20px 100px;">
+        <h1>Cart Product</h1>
+        <div>
+            <a href="add-item.html" target="_blank" class="checkout-btn" style="background-color: green;" onclick="deleteAll()">Check-out</a>
+            <a href="javascript:void(0)" onclick="deleteAll()" class="checkout-btn">Clear-All</a>
+        </div>
+    </div>
+
+    <div id="cart"></div>
+
+    <script>
+        function loadCart() {
+            var products = JSON.parse(localStorage.getItem('product')) || [];
+            var cart = "<table border='1'><tr><th>Pro Name</th><th>Pro Img</th><th>Pro Quantity</th><th>Pro Price</th><th>Total Price</th><th>Buttons</th></tr>";
+
+            if (products.length > 0) {
+                products.forEach(product => {
+                    let total_price = product.price * product.quantity;
+                    cart += `<tr>`;
+                    cart += `<td>${product.name}</td>`;
+                    cart += `<td><img src='img/${product.img}' width='90px' height='90px'></td>`;
+                    cart += `<td>${product.quantity}</td>`;
+                    cart += `<td>₹ ${product.price}</td>`;
+                    cart += `<td>₹ ${total_price}</td>`;
+                    cart += `<td>
+                                <button class="btn delete-btn" onclick="deleteProduct(${product.no})">Delete</button>
+                                <button class="btn update-btn" onclick="updateProduct(${product.no})">Update</button>
+                            </td>`;
+                    cart += `</tr>`;
+                });
+            } else {
+                cart += `<tr><td colspan="6"><h2>No Products Available</h2></td></tr>`;
+            }
+
+            cart += "</table>";
+            document.getElementById('cart').innerHTML = cart;
+        }
+
+        loadCart();
+
+        function deleteProduct(no) {
+            let products = JSON.parse(localStorage.getItem('product')) || [];
+            products = products.filter(product => product.no !== no);
+            localStorage.setItem('product', JSON.stringify(products));
+            loadCart();
+        }
+
+        function updateProduct(no) {
+            let products = JSON.parse(localStorage.getItem('product')) || [];
+            let index = products.findIndex(product => product.no === no);
+
+            if (index !== -1) {
+                let newQuantity = prompt("Enter new Quantity:", products[index].quantity);
+                let newPrice = prompt("Enter new Price:", products[index].price);
+
+                if (newQuantity !== null && !isNaN(newQuantity) && newPrice !== null && !isNaN(newPrice)) {
+                    products[index].quantity = parseInt(newQuantity);
+                    products[index].price = parseFloat(newPrice);
+                    localStorage.setItem('product', JSON.stringify(products));
+                    loadCart();
+                } else {
+                    alert("Invalid Input!");
+                }
+            }
+        }
+
+        function deleteAll() {
+            localStorage.setItem("product", JSON.stringify([]));
+            loadCart();
+        }
+    </script>
+
+</body>
+
+</html>
+

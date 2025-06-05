@@ -1,0 +1,115 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.box {
+    padding: 25px;
+    width: 300px;
+    text-align: center;
+    margin: 50px 30px;
+    border-radius: 10px;
+    position: relative;
+    box-shadow: 1px 2px 19px 3px rgb(19, 19, 19);
+}
+
+.box a {
+    text-decoration: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 30px;
+    color: blue;
+}
+
+.main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.name {
+    font-size: 23px;
+    margin: 19px 0;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-align: center;
+}
+
+.price {
+    text-align: center;
+    font-size: 20px;
+    letter-spacing: 1px;
+}
+
+.quntity {
+    margin-top: 10px;
+    font-size: large;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+h1 {
+    font-weight: 400;
+    font-size: 30px;
+}
+
+nav {
+    background-color: #233bef;
+    color: #ffffff;
+    padding: 40px;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav a {
+    font-size: 35px;
+    color: white;
+    position: relative;
+    text-decoration: none;
+}
+
+nav a span {
+    padding: 3px 8px;
+    background-color: rgb(233, 24, 177);
+    border-radius: 60%;
+    position: absolute;
+    font-size: 18px;
+    top: -40%;
+    right: -30%;
+}
+
+.ri-add-fill {
+    margin-right: 10px;
+}
+
+.Buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px 10px;
+}
+
+.Buttons a {
+    margin-right: 10px;
+}
+table{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.search{
+    text-align: center;
+    margin-top: 35px;
+}
+.search input{
+    width: 500px;
+    height: 45px;
+    padding: 10px;
+    border-radius: 10px;
+}

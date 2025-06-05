@@ -1,0 +1,92 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    background-image: url(../img/back.avif);
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 50px 0;
+
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+table {
+    margin: 0 auto;
+    border-radius: 12px;
+    padding: 30px 40px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+td {
+    text-align: left;
+    padding: 15px 10px;
+    font-size: 18px;
+    color: #eee3e3;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="file"] {
+    width: 250px;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    outline: none;
+    transition: 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="file"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px #007bff55;
+}
+
+input[type="button"] {
+    padding: 10px 20px;
+    margin: 10px 5px;
+    border: none;
+    border-radius: 8px;
+    background-color: #8cd828;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+input[type="button"]:hover {
+    background-color: #b61f7c;
+}
+
+a input[type="button"] {
+    background-color: #28a745;
+}
+
+a input[type="button"]:hover {
+    background-color: #541e7e;
+}
+
+@media (max-width: 600px) {
+    table {
+        padding: 20px;
+        width: 90%;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="file"] {
+        width: 100%;
+    }
+}

@@ -1,0 +1,75 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+    min-height: 100vh;
+    display: flex;
+    background-image: url("../images/corono-img.jpg");
+    background-size: cover;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+}
+
+.box {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: black;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.box input[type="text"] {
+    padding: 10px 15px;
+    width: 250px;
+    border: 1px solid #d81818;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.box input[type="text"]:focus {
+    border-color: #232424;
+    outline: none;
+}
+
+.box input[type="button"] {
+    padding: 10px 20px;
+    background-color: #00acc1;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.box input[type="button"]:hover {
+    background-color: #008b9a;
+}
+
+h1 {
+    font-size: 28px;
+    color: #00796b;
+}
+
+p {
+    color: white;
+    margin-top: 10px;
+    font-size: 22px;
+    max-width: 300px;
+}
+
+ /* Smooth transition for content appearing */
+div[style*="display: flex;"] p, div[style*="display: flex;"] h1 {
+    transition: all 0.4s ease;
+}

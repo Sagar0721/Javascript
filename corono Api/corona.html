@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corona Details</title>
+
+    <!-- Roboto fonts  -->
+     <link href="fons/Roboto/stylesheet.css" rel="stylesheet" type="text/css">
+     
+    <!-- main css -->
+    <link href="css/corono.css" rel="stylesheet" type="text/css">
+  
+</head>
+<body>
+    <div class="box">
+        <input type="text" placeholder="Enter Name Country:--" id="coronacases">
+        <input type="button" value="Click" id="Button" onclick="coronaData()">
+    </div>
+    <div style="display: flex;flex-direction: column;align-items: center;text-align: left;">
+        <h1 id="continent" style="margin-top: 25px;"></h1>
+        <p id="country"></p>
+        <p id="active"></p>
+        <p id="oneDeathPerPeople"></p>
+        <p id="test"></p>
+        <p id="cases"></p>
+        <p id="deaths"></p>
+        <p id="todayCases"></p>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        function coronaData() {
+
+            var corona = document.getElementById('coronacases').value;
+
+            $.ajax({
+                url: 'https://disease.sh/v3/covid-19/countries/' + corona,
+                type: 'get',
+                success: function (data) {
+                    console.log(data);
+                    document.getElementById('continent').innerHTML = "Continent : " + data.continent;
+                    document.getElementById('country').innerHTML = "Country : " + data.country;
+                    document.getElementById('active').innerHTML = "Active : " + data.active;
+                    document.getElementById('oneDeathPerPeople').innerHTML ="OneDeathPerPeople :" +data.oneDeathPerPeople;
+                    document.getElementById('test').innerHTML = "Test : " + data.tests;
+                    document.getElementById('cases').innerHTML = "Cases : " + data.cases;
+                    document.getElementById('deaths').innerHTML = "Deaths : " + data.deaths;
+                    document.getElementById('todayCases').innerHTML = "TodayCases : " + data.todayCases;
+                }
+            });
+
+            document.getElementById('coronacases').value = "";
+        }
+
+    </script>
+</body>
+
+</html>

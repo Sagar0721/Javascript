@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Details</title>
+
+    <!-- poppins fons  -->
+    <link href="fonts/poppins/stylesheet.css" rel="stylesheet" type="text/css">
+
+    <!-- main css  -->
+     <link href="css/weather.css" rel="stylesheet" type="text/css">
+    
+</head>
+<body>
+
+    <div class="main">
+        <input type="text" id="citys" placeholder="Enter Country Name">
+        <input type="submit" value="weatherans" onclick="weatherData()">
+    </div>
+
+    <div class="container">
+        <div class="box">
+            <h3 id="conditionText">Condition:-</h3>
+        </div>
+        <div class="box1">
+            <h3 id="countryName">Country:-</h3>
+        </div>
+        <div class="box1">
+            <h3 id="feelslike_c">feelslike_c:-</h3>
+        </div>
+        <div class="box1">
+            <h3 id="feelslike_f">feelslike_f:-</h3>
+        </div>
+        <div class="box2">
+            <h3 id="region">region:-</h3>
+        </div>
+        <div class="box3">
+            <h3 id="localtime">localtime:-</h3>
+        </div>
+        <div class="box4">
+            <h3 id="cloudInfo">Cloud Cover: -</h3>
+        </div>
+        <div class="box6">
+            <h3 id="latitude">Latitude: -</h3>
+        </div>
+    </div>
+
+    <script>
+        function weatherData() {
+            var city = document.getElementById('citys').value.trim();
+
+            $.ajax({
+                url: 'https://api.weatherapi.com/v1/current.json?key=ca4475c9f935456eabb55858240507&q=' + city + '&aqi=no',
+                type: "get",
+                success: function (data) {
+                    console.log(data);
+
+                    document.getElementById('conditionText').innerHTML = "Condition: " + data.current.condition.text;
+                    document.getElementById('countryName').innerHTML = "Country: " + data.location.country;
+                    document.getElementById('feelslike_c').innerHTML ="feelslike_c : "+ data.current.feelslike_c;
+                    document.getElementById('feelslike_f').innerHTML ="feelslike_f : "+ data.current.feelslike_f;
+                    document.getElementById('region').innerHTML = "region: " + data.location.region;
+                    document.getElementById('localtime').innerHTML ="localtime: "  + data.location.localtime;
+                    document.getElementById('cloudInfo').innerHTML = "Cloud Cover: " + data.current.cloud + " %";
+                    document.getElementById('latitude').innerHTML = "Latitude: " + data.location.lat;
+                }
+            });
+        }
+    </script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+</body>
+</html>
+
